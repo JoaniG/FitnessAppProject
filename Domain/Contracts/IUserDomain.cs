@@ -1,4 +1,5 @@
 ﻿using DTO.UserDTO;
+using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace Domain.Contracts
 {
     public interface IUserDomain
     {
-        IList<UserDTO> GetAllUsers();
+        List<UserDTO> GetAllUsers();
         UserDTO GetUserById(Guid id);
+        UserDTO GetByUsername(string username);
     }
 }

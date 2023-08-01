@@ -16,6 +16,15 @@ namespace DAL.DI
             IncludeRegistry<UnitOfWorkRegistry>();
 
             For<IUserRepository>().Use<UserRepository>();
+            For<IExerciseRepository>().Use<ExerciseRepository>();
+            For<IMeasurementRepository>().Use<MeasurementRepository>();
+            For<IRefreshTokenRepository>().Use<RefreshTokenRepository>();
+            For<IRoutineExerciseRepository>().Use<RoutineExerciseRepository>();
+            For<IRoutineRepository>().Use<RoutineRepository>();
+            For<ISetRepository>().Use<SetRepository>();
+            For<IWorkoutExerciseRepository>().Use<WorkoutExerciseRepository>();
+            For<IWorkoutRepository>().Use<WorkoutRepository>();
+
         }
 
 

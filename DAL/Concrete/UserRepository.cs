@@ -11,16 +11,15 @@ namespace DAL.Concrete
     internal class UserRepository : BaseRepository<User, Guid>, IUserRepository
     {
 
-        public UserRepository(RecrutimentContext dbContext) : base(dbContext)
+        public UserRepository(FitnessAppDBContext dbContext) : base(dbContext)
         {
         }
 
-        public User GetById(Guid id)
+        public User GetByUsername(string username)
         {
-            var user = context.Where(a => a.UserId == id).FirstOrDefault();
+            var user = context.Where(a => a.Username == username).FirstOrDefault();
             return user;
         }
-
 
     }
 

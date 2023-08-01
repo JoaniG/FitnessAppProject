@@ -67,6 +67,32 @@ namespace HumanResourceProject.Controllers
                 throw ex;
             }
         }
+
+
+        [HttpGet]
+        [Route("username/{username}")]
+        public IActionResult GetUserByUsername([FromRoute] string username)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+                var user = _userDomain.GetByUsername(username);
+
+                if (user != null)
+                    return Ok(user);
+
+                return NotFound();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        
     }
 }
+
 

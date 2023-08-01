@@ -9,6 +9,9 @@ namespace DAL.Contracts
 {
     public interface IUserRepository: IRepository<User, Guid>
     {
-        User GetById(Guid id);
+        User GetByUsername(string username);
+        //User CreateUser(User user);
+        //bool DeleteUser(Guid id);
+        //bool UpdateUser(User user);
     }
 }
