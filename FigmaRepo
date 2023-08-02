@@ -10,4 +10,7 @@ ROUTINE
 getUserRoutines, makeNewRoutine, getRoutineExercises
 
 WORKOUT
-createWorkout, editWorkout, deleteWorkout
+createWorkout, editWorkout, deleteWorkout, getWorkoutExercises
+
+Account
+Login, Register, Logout, ChangePassword
