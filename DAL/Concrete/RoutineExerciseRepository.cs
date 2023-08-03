@@ -13,5 +13,11 @@ namespace DAL.Concrete
         public RoutineExerciseRepository(FitnessAppDBContext dbContext) : base(dbContext)
         {
         }
+
+        public List<RoutineExercise> GetExerciseIdsInRoutine(Guid routineId)
+        {
+            var routineExercises = context.Where(a => a.RoutineId == routineId).ToList();
+            return routineExercises;
+        }
     }
 }

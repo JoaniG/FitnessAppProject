@@ -9,5 +9,6 @@ namespace DAL.Contracts
 {
     public interface IRoutineExerciseRepository : IRepository<RoutineExercise, Guid>
     {
+        List<RoutineExercise> GetExerciseIdsInRoutine(Guid routineId);
     }
 }
