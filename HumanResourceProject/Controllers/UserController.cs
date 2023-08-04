@@ -91,7 +91,50 @@ namespace HumanResourceProject.Controllers
             }
         }
 
-        
+        [HttpGet]
+        [Route("measurements/{userId}")]
+        public IActionResult GetUserMeasurements([FromRoute] Guid userId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return BadRequest();
+                var userMeasurements = _userDomain.GetUserMeasurement(userId);
+
+                if (userMeasurements != null)
+                    return Ok(userMeasurements);
+
+                return NotFound();
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpPost]
+        [Route("measurements/add")]
+        public IActionResult AddMeasurement([FromBody] MeasurementInputDTO measurement)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+                if (measurement is null)
+                    return BadRequest("Object is null");
+
+                _userDomain.AddUserMeasurement(measurement);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
     }
 }
 

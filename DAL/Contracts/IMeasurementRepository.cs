@@ -9,5 +9,6 @@ namespace DAL.Contracts
 {
     public interface IMeasurementRepository : IRepository<Measurement, Guid>
     {
+        List<Measurement> GetByUserId(Guid userId);
     }
 }

@@ -12,6 +12,12 @@ namespace DAL.Concrete
     {
         public MeasurementRepository(FitnessAppDBContext dbContext) : base(dbContext)
         {
+            
+        }
+        public List<Measurement> GetByUserId(Guid userId)
+        {
+            var measurements = context.Where(a => a.UserId == userId).ToList();
+            return measurements;
         }
     }
 }

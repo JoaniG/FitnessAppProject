@@ -21,47 +21,12 @@ namespace Domain.Concrete
         }
 
         private IUserRepository userRepository => _unitOfWork.GetRepository<IUserRepository>();
+        private IMeasurementRepository measurementRepository => _unitOfWork.GetRepository<IMeasurementRepository>();
 
         public UserDTO GetByUsername(string username)
         {
             User user = userRepository.GetByUsername(username);
             return _mapper.Map<UserDTO>(user);
-        }
-
-        private bool isPasswordCorrect(User user, string password)
-        {
-            using var hmac = new HMACSHA512(user.PasswordSalt);
-
-            var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(password));
-
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i])
-                    return false;
-            }
-            return true;
-        }
-
-        //public TokenDTO Login(LoginDTO loginDTO)
-        //{
-        //    var user = CheckUsername(loginDTO.Username);
-        //    if (user == null)
-        //        throw new ArgumentException("Invalid username");
-
-        //    if (isPasswordCorrect(user, loginDTO.Password) == false)
-        //        throw new ArgumentException("Invalid password");
-
-        //    return new TokenDTO
-        //    {
-        //        Username = user.Username,
-        //        Token = _tokenService.CreateToken(user)
-        //    };
-        //}
-
-        private User CheckUsername(string username)
-        {
-            var user = userRepository.GetByUsername(username);
-            return user;
         }
 
         public List<UserDTO> GetAllUsers()
@@ -80,6 +45,29 @@ namespace Domain.Concrete
         {
             var user = userRepository.GetById(id);
             return _mapper.Map<UserDTO>(user);
+        }
+
+        public List<Measurement> GetUserMeasurement(Guid id)
+        {
+            var measurement = measurementRepository.GetByUserId(id);
+            return measurement;
+        }
+
+        public void AddUserMeasurement(MeasurementInputDTO measurement)
+        {
+            Measurement measurementToAdd = new Measurement
+            {
+                Biceps = measurement.Biceps,
+                Waist = measurement.Waist,
+                Hips = measurement.Hips,
+                Thighs = measurement.Thighs,
+                Chest = measurement.Chest,
+                UserId = measurement.UserId,
+                Date = DateTime.Now,
+                Id = Guid.NewGuid()
+            };
+            measurementRepository.Add(measurementToAdd);
+            _unitOfWork.Save();
         }
     }
 }

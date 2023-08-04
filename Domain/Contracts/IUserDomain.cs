@@ -13,5 +13,7 @@ namespace Domain.Contracts
         List<UserDTO> GetAllUsers();
         UserDTO GetUserById(Guid id);
         UserDTO GetByUsername(string username);
+        void AddUserMeasurement(MeasurementInputDTO measurement);
+        List<Measurement> GetUserMeasurement(Guid id);
     }
 }
