@@ -14,9 +14,9 @@ namespace DAL.Concrete
         {
         }
 
-        public IEnumerable<Workout> GetWorkoutsByUserId(Guid userId)
+        public List<Workout> GetWorkoutsByUserId(Guid userId)
         {
-            return context.Where(x => x.UserId == userId);
+            return context.Where(x => x.UserId == userId).ToList();
         }
     }
 }

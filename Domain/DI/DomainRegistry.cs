@@ -20,6 +20,9 @@ namespace Domain.DI
             For<IUserDomain>().Use<UserDomain>();
             For<ITokenService>().Use<TokenService>();
             For<ILoginService>().Use<LoginService>();
+            For<IRoutineDomain>().Use<RoutineDomain>();
+            For<IExerciseDomain>().Use<ExerciseDomain>();
+            For<IWorkoutDomain>().Use<WorkoutDomain>();
 
             AddRepositoryRegistries();
             AddHttpContextRegistries();

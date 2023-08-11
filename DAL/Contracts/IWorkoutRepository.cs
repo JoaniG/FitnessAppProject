@@ -9,7 +9,7 @@ namespace DAL.Contracts
 {
     public interface IWorkoutRepository : IRepository<Workout, Guid>
     {
-        IEnumerable<Workout> GetWorkoutsByUserId(Guid userId);
+        List<Workout> GetWorkoutsByUserId(Guid userId);
 
     }
 }
