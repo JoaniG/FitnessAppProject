@@ -9,7 +9,7 @@ namespace DAL.Contracts
 {
     public interface IRoutineRepository:IRepository<Routine, Guid>
     {
-        IEnumerable<Routine> GetRoutinesByUserId(Guid userId);
+        List<Routine> GetRoutinesByUserId(Guid userId);
         //Routine GetRoutineById(Guid id);
         //bool CreateNewRoutine(Routine routine);
         //bool DeleteRoutine(Guid id);

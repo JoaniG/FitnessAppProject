@@ -14,9 +14,9 @@ namespace DAL.Concrete
         {
         }
 
-        public IEnumerable<Routine> GetRoutinesByUserId(Guid userId)
+        public List<Routine> GetRoutinesByUserId(Guid userId)
         {
-            return context.Where(x => x.UserId == userId);
+            return context.Where(x => x.UserId == userId).ToList();
         }
     }
 }
