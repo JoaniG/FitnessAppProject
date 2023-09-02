@@ -1,4 +1,5 @@
-﻿using Entities.Models;
+﻿using DTO;
+using Entities.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,6 @@ namespace Domain.Contracts
         List<RoutineExercise> GetExercisesInRoutine(Guid routineId);
         Exercise GetExerciseById(Guid id);
         List<Exercise> GetAllExercises();
-        void AddExercise(Exercise exercise);
+        void AddExercise(ExerciseDTO exercise);
     }
 }

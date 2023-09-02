@@ -2,6 +2,7 @@
 using DAL.Contracts;
 using DAL.UoW;
 using Domain.Contracts;
+using DTO;
 using DTO.UserDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Http;
@@ -21,9 +22,16 @@ namespace Domain.Concrete
         private IExerciseRepository exerciseRepository => _unitOfWork.GetRepository<IExerciseRepository>();
         private IRoutineExerciseRepository routineExerciseRepository => _unitOfWork.GetRepository<IRoutineExerciseRepository>();
 
-        public void AddExercise(Exercise exercise)
+        public void AddExercise(ExerciseDTO exercise)
         {
-            exerciseRepository.Add(exercise);
+            Exercise exerciseToAdd = new Exercise
+            {
+                Name = exercise.Name,
+                PrimaryTarget = exercise.PrimaryTarget,
+                SecondaryTarget = exercise.SecondaryTarget,
+                Id = Guid.NewGuid()
+            };
+            exerciseRepository.Add(exerciseToAdd);
             _unitOfWork.Save();
         }
 

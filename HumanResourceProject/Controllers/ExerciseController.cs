@@ -1,4 +1,5 @@
 ﻿using Domain.Contracts;
+using DTO;
 using DTO.UserDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -88,7 +89,7 @@ namespace FitnessProject.Controllers
         }
 
         [HttpPost("add")]
-        public IActionResult AddExercise(Exercise exercise)
+        public IActionResult AddExercise(ExerciseDTO exercise)
         {
             try
             {
