@@ -15,5 +15,7 @@ namespace Domain.Contracts
         UserDTO GetByUsername(string username);
         void AddUserMeasurement(MeasurementInputDTO measurement);
         List<Measurement> GetUserMeasurement(Guid id);
+        bool GetUserSettings(Guid id);
+        void ChangeMeasurementUnit(ChangeMeasurementDTO changeMeasurement);
     }
 }

@@ -44,7 +44,7 @@ namespace FitnessProject.Controllers
         }
 
         [HttpGet]
-        [Route("{Id}")]
+        [Route("{id}")]
         public IActionResult GetWorkout(Guid id)
         {
             try
@@ -71,6 +71,80 @@ namespace FitnessProject.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("exercises/{workoutId}")]
+        public IActionResult GetWorkoutExercises(Guid workoutId)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var exercises = _workoutDomain.GetWorkoutExercises(workoutId);
+
+                if (exercises != null)
+                {
+                    return Ok(exercises);
+                }
+                else
+                {
+                    return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex);
+            }
+        }
+
+        [HttpPost("exercises")]
+        public IActionResult AddExercises(List<WorkoutExerciseDTO> exercises)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                _workoutDomain.AddExercisesInWorkout(exercises);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(600, ex);
+            }
+        }
+
+        [HttpPost("set")]
+        public IActionResult AddSets(List<SetDTO> sets)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                _workoutDomain.AddSets(sets);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(600, ex);
+            }
+        }
+
         [HttpPost("add")]
         public IActionResult AddWorkout(WorkoutDTO workout)
         {
@@ -82,6 +156,29 @@ namespace FitnessProject.Controllers
                 }
 
                 var id = _workoutDomain.CreateWorkout(workout);
+                return Ok(id);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(600, ex);
+            }
+        }
+
+        [HttpPost("addWorkout")]
+        public IActionResult AddWholeWorkout(WorkoutPOST workout)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var id = _workoutDomain.AddWorkout(workout);
                 return Ok(id);
             }
             catch (ArgumentException ex)

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Concrete
 {
@@ -16,7 +17,13 @@ namespace DAL.Concrete
 
         public List<Workout> GetWorkoutsByUserId(Guid userId)
         {
-            return context.Where(x => x.UserId == userId).ToList();
+            return context.Include(x => x.WorkoutExercises).ThenInclude(x => x.Sets).Include(x => x.WorkoutExercises).ThenInclude(x => x.Exercise).Where(x => x.UserId == userId).ToList();
+        }
+
+        public Workout GetWorkoutById(Guid id)
+        {
+            var workout = context.Include(x => x.WorkoutExercises).ThenInclude(x => x.Sets).Include(x => x.WorkoutExercises).ThenInclude(x => x.Exercise).Where(a => a.Id == id).SingleOrDefault();
+            return workout;
         }
     }
 }

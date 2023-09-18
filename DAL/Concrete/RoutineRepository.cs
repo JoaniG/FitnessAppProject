@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Concrete
 {
@@ -16,7 +17,7 @@ namespace DAL.Concrete
 
         public List<Routine> GetRoutinesByUserId(Guid userId)
         {
-            return context.Where(x => x.UserId == userId).ToList();
+            return context.Include(x => x.RoutineExercises).ThenInclude(x => x.Exercise).Where(x => x.UserId == userId).ToList();
         }
     }
 }

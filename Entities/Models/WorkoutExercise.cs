@@ -11,7 +11,7 @@ namespace Entities.Models
         }
 
         public Guid Id { get; set; }
-        public string Description { get; set; } = null!;
+        public string? Description { get; set; } = null!;
         public Guid WorkoutId { get; set; }
         public Guid ExerciseId { get; set; }
 

@@ -140,8 +140,7 @@ namespace Domain.Concrete
             {
                 Subject = new ClaimsIdentity(new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier as String, id as String),
-                    // Add additional claims as needed
+                    new Claim(ClaimTypes.NameIdentifier as String, id as String)
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(5),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)

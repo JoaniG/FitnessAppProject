@@ -1,5 +1,6 @@
 ﻿using Domain.Contracts;
 using DTO;
+using DTO.UserDTO;
 using Entities.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -44,7 +45,7 @@ namespace FitnessProject.Controllers
         }
 
         [HttpGet]
-        [Route("routines/{userId}}")]
+        [Route("routines/{userId}")]
         public IActionResult GetRotuinesByUserId(Guid userId)
         {
             try
@@ -95,8 +96,54 @@ namespace FitnessProject.Controllers
             }
         }
 
+        [HttpPost("create")]
+        public IActionResult CreateRoutine(RoutinePost routine)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                var id = _routineDomain.AddRoutine(routine);
+                return Ok(id);
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(600, ex);
+            }
+        }
+
+        [HttpPost("routine/exercises")]
+        public IActionResult AddExercises(List<RoutineExerciseDTO> exercises)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                _routineDomain.AddExercisesInRoutine(exercises);
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(600, ex);
+            }
+        }
+
         [HttpPut("update")]
-        public IActionResult UpdateRoutine(Routine routine)
+        public IActionResult UpdateRoutine(RoutinePut routine)
         {
             try
             {

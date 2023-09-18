@@ -47,10 +47,17 @@ namespace Domain.Concrete
             return _mapper.Map<UserDTO>(user);
         }
 
+        public bool GetUserSettings(Guid id)
+        {
+            var user = userRepository.GetById(id);
+            return user.WeightSetting;
+        }
+
         public List<Measurement> GetUserMeasurement(Guid id)
         {
-            var measurement = measurementRepository.GetByUserId(id);
-            return measurement;
+            var measurements = measurementRepository.GetByUserId(id);
+            var sortedMeasurements = measurements.OrderByDescending(measurement => measurement.Date).ToList();
+            return sortedMeasurements;
         }
 
         public void AddUserMeasurement(MeasurementInputDTO measurement)
@@ -63,11 +70,22 @@ namespace Domain.Concrete
                 Thighs = measurement.Thighs,
                 Chest = measurement.Chest,
                 UserId = measurement.UserId,
+                Height = measurement.Height,
+                Weight = measurement.Weight,
                 Date = DateTime.Now,
                 Id = Guid.NewGuid()
             };
             measurementRepository.Add(measurementToAdd);
             _unitOfWork.Save();
+        }
+
+        public void ChangeMeasurementUnit(ChangeMeasurementDTO changeMeasurement)
+        {
+            var user = userRepository.GetById(changeMeasurement.UserId);
+            user.WeightSetting = changeMeasurement.WeightSetting;
+            userRepository.Update(user);
+            _unitOfWork.Save();
+
         }
     }
 }

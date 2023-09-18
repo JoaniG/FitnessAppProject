@@ -135,6 +135,29 @@ namespace HumanResourceProject.Controllers
             }
         }
 
+        [HttpPatch("changeUnit")]
+        public IActionResult ChangeUnit(ChangeMeasurementDTO changeMeasurement)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                _userDomain.ChangeMeasurementUnit(changeMeasurement);
+
+                return Ok();
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(700, ex);
+            }
+        }
     }
 }
 

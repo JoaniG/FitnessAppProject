@@ -13,5 +13,9 @@ namespace Domain.Contracts
         Workout GetWorkout(Guid id);
         Guid CreateWorkout(WorkoutDTO workout);
         List<Workout> GetWorkoutsByUser(Guid userId);
+        void AddExercisesInWorkout(List<WorkoutExerciseDTO> workoutExercises);
+        List<WorkoutExercise> GetWorkoutExercises(Guid workoutId);
+        void AddSets(List<SetDTO> sets);
+        Guid AddWorkout(WorkoutPOST workout);
     }
 }

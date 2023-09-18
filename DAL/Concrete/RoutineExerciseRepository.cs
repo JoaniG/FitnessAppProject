@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DAL.Contracts;
 using Entities.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DAL.Concrete
 {
@@ -13,7 +14,6 @@ namespace DAL.Concrete
         public RoutineExerciseRepository(FitnessAppDBContext dbContext) : base(dbContext)
         {
         }
-
         public List<RoutineExercise> GetExerciseIdsInRoutine(Guid routineId)
         {
             var routineExercises = context.Where(a => a.RoutineId == routineId).ToList();
